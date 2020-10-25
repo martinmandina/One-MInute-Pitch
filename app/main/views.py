@@ -12,4 +12,4 @@ def index():
       return render_template('index.html', interview = interview,product = product,promotion = promotion,advertisement = advertisement)
 
 
-
+@
