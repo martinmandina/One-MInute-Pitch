@@ -8,14 +8,18 @@ class User(db.Model):
 
     pitches = db.relationship('Pitch', backref='user', lazy='dynamic')
    
+    def __repr__(self):
+        return f'User {self.username}'
 
-class Pitch(db.model):
+class Pitch(db.Model):
     __tablename__ = 'pitches'
 
     id = db.Column(db.Integer,primary_key = True)
     title = db.Column(db.String(255))
-    
+
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
 
-def __repr__(self):
-        return f'User {self.username}'
+    def __repr__(self):
+        return f'Title {self.title}'
+
+
