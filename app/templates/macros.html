@@ -1,1 +1,12 @@
-<h1>HAllo world</h1>
+{% macro displayCategoryList(category_list) %} 
+    {% for category in category_list %}
+    <div class="col-md-4">
+        
+        <li class="text-center">
+            <a href="/{{category.id}}">
+                {{ category.title|truncate(10)}}</a>
+        </li>
+    </div>
+
+    {% endfor %} 
+{% endmacro %}

@@ -1,1 +1,19 @@
-<h1>HAllo World</h1>
+<h1>hallo world</h1>
+{% extends 'base.html'%} 
+{% import 'macros.html' as macro %} 
+{% block styles%}
+    {{ super() }}
+    <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+{% endblock %}
+
+% block content %}
+<div class="container">
+
+    
+    <div class="row">
+        <h3> Category</h3>
+        <ul>
+            {{ macro.displayCategoryList(description)}}
+        </ul>
+    </div>
+{% endblock%}
