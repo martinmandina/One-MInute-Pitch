@@ -53,7 +53,7 @@ class Pitch(db.Model):
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
     category_id = db.Column(db.Integer, db.ForeignKey("categories.id"))
     
-     def save_piches(self):
+    def save_pitches(self):
         db.session.add(self)
         db.session.commit()
 
