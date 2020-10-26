@@ -14,7 +14,8 @@ manager.add_command('db',MigrateCommand)
 
 @manager.shell
 def make_shell_context():
-    return dict(app = app,db = db,User = User,Pitch = Pitch)
+    return dict(app = app,db = db,User = User,Pitch = Pitch,Category = Category)
 
 if __name__ == '__main__':
+    app.secret_key = 'SECRET_KEY'
     manager.run()
