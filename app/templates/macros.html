@@ -1,13 +1,36 @@
-
-{% macro displayCategoryList(category_list) %} 
-    {% for category in category_list %}
-    <div class="col-md-4">
-        
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    {% macro displayPitchList(pitches) %}
+    {% for pitch in pitches %}
+        <div class="">
         <li class="text-center">
-            <a href="/{{category.id}}">
-                {{ category.title|truncate(10)}}</a>
+        <a href="/pitches"></a>
         </li>
-    </div>
+        {% endfor %}
+        </div>
+        {% endmacro %}
 
-    {% endfor %} 
+    {% macro display_comments(comments) %}
+    <div class="container">
+    </div>
+    <div class="card-columns">
+    {% for comment in comments %}
+    <div class="card">
+    <div class="card-header">
+    </div>
+    <div class="card-body">
+    <p>{{comment.comment}}</p>
+    </div>
+    <p class="text-center">{{comment.post.title}}</p>
+    </div>
+    {% endfor %}
+</div>
+
 {% endmacro %}
+
+

@@ -1,7 +1,7 @@
 from flask import render_template,request,redirect,url_for
 from . import main
-from ..models import User,Pitch,Category
-# from .forms import ReviewForm,UpdateProfile
+from ..models import User,Pitch
+from .forms import PitchForm,CommentForm
 from flask_login import login_required,current_user
 
 @main.route('/')
@@ -10,9 +10,49 @@ def index():
     pickuplines= Pitch.query.filter_by(category = 'Pickuplines').all() 
     interview = Pitch.query.filter_by(category = 'Interview').all()
     promotion = Pitch.query.filter_by(category = 'Promotion').all()
-    
     title = "Pitches - A Minute Pitch Website One liner"
 
     return render_template('index.html',title = title, pitches = pitches,pickuplines = pickuplines,promotion = promotion,interview = interview)
 
 
+@main.route('/pitches', methods =  ["POST","GET"])
+@login_required
+def new_pitch(): 
+    
+    form = PitchForm()
+
+    if form.validate_on_submit():
+        description = form.description.data
+        category = form.category.data
+        title = form.title.data
+        user_id = current_user
+
+        print(current_user._get_current_object().id)
+        new_pitch = Pitch(user_id =current_user._get_current_object().id, title = title,description=description,category=category)
+        
+        return redirect(url_for('main.index'))
+         
+    return render_template('new_pitch.html', form = form)
+
+@main.route('/comments/<int:pitch_id>', methods=['GET', 'POST'])
+@login_required
+def comment(pitch_id):
+    form = CommentForm()
+
+    post = Pitch.query.get(pitch_id)
+    user = User.query.all()
+    comments = Comment.query.filter_by(post_id=post_id).all()
+    if form.validate_on_submit():
+        comment = form.comment.data
+        pitch_id = pitch_id
+        user_id = current_user._get_current_object().id
+        new_comment = Comment(
+            comment=comment,
+            pitch_id=pitch_id,
+            user_id=user_id
+        )
+        new_comment.save()
+        new_comments = [new_comment]
+        print(new_comments)
+        return redirect(url_for('.comment', pitch_id=pitch_id))
+    return render_template('comment.html', form=form, post=post, comments=comments, user=user)
