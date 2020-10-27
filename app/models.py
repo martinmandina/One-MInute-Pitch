@@ -23,6 +23,7 @@ class User(UserMixin,db.Model):
     password_hash = db.Column(db.String(255))
 
     pitches = db.relationship('Pitch', backref='user', lazy='dynamic')
+    comment = db.relationship('Comment', backref='user', lazy='dynamic')
 
     # securing passwords
     @property
