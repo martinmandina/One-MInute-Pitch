@@ -9,9 +9,12 @@ class Config:
 
 class ProdConfig(Config):
     pass
-
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://martinmandina:alicewambui@localhost/pitch'
 class DevConfig(Config):
     DEBUG = True
+
+class TestConfig(Config):
+    SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://martinmandina:alicewambui@localhost/pitch'
 
 config_options = {
 'development':DevConfig,

@@ -22,7 +22,7 @@ class User(UserMixin,db.Model):
     password_secure = db.Column(db.String(255))
     password_hash = db.Column(db.String(255))
 
-    # pitches = db.relationship('Pitch', backref='user', lazy='dynamic')
+    pitches = db.relationship('Pitch', backref='user', lazy='dynamic')
 
     # securing passwords
     @property
@@ -57,9 +57,26 @@ class Pitch(db.Model):
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
     category_id = db.Column(db.Integer, db.ForeignKey("categories.id"))
     
+    comments = db.relationship('Comment',backref = 'pitch',lazy="dynamic")
+
     def save_pitches(self):
         db.session.add(self)
         db.session.commit()
+
+    @classmethod
+    def get_all_pitches(cls):
+        '''
+        Function that queries the databse and returns all the pitches
+        '''
+        return Pitch.query.all()
+
+    @classmethod
+    def get_pitches_by_category(cls,cat_id):
+        '''
+        Function that queries the databse and returns pitches based on the
+        category passed to it
+        '''
+        return Pitch.query.filter_by(category_id = category_id)
 
     def __repr__(self):
         return f'Title {self.title}'
@@ -68,12 +85,10 @@ class Category(db.Model):
     __tablename__ = 'categories'
 
     id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(255))
+    category_title = db.Column(db.String(255))
     description = db.Column(db.String(255))
 
-    pitches = db.relationship('Pitch', backref='user', lazy='dynamic')
-
-
+    
     def save_category(self):
         db.session.add(self)
         db.session.commit()
@@ -82,6 +97,32 @@ class Category(db.Model):
     def get_categories(cls):
         categories = Category.query.all()
         return categories
+
+class Comment(db.Model):
+    __tablename__ = 'comments'
+
+    id = db.Column(db.Integer, primary_key=True)
+    comment = db.Column(db.Text(),nullable = False)
+    votes= db.Column(db.Integer)
+
+    pitch_id = db.Column(db.Integer,db.ForeignKey('pitches.id'),nullable = False)
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'),nullable = False)
+
+
+
+
+    def save_c(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_comments(cls,pitch_id):
+        comments = Comment.query.filter_by(pitch_id=pitch_id).all()
+
+        return comments
+
+    def __repr__(self):
+        return f'comment:{self.comment}'
 
 
 

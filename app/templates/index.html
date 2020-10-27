@@ -1,4 +1,4 @@
-<h1>Hello world</h1>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -6,6 +6,7 @@
     <title></title>
   </head>
   <body>
+
 {% extends 'base.html'%} 
 {% import 'macros.html' as macro %} 
 {% block styles%}
@@ -17,9 +18,9 @@
 <div class="container">
 
         <div class="row">
-        <h3> Category</h3>
+        <h3> Pitch</h3>
         <ul>
-            {{ macro.displayCategoryList(description)}}
+            
         </ul>
     </div>
   {% endblock%}
