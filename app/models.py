@@ -56,10 +56,10 @@ class Pitch(db.Model):
     description = db.Column(db.String(), nullable = False)
     post = db.Column(db.Text(), nullable = False)
     category = db.Column(db.String(255), index = True,nullable = False)
+
     
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
-    category_id = db.Column(db.Integer, db.ForeignKey("categories.id"))
-    
+        
     comments = db.relationship('Comment',backref = 'pitch',lazy="dynamic")
 
     def save(self):
@@ -73,22 +73,6 @@ class Pitch(db.Model):
     def __repr__(self):
         return f'Title {self.title}'
 
-class Category(db.Model):
-    __tablename__ = 'categories'
-
-    id = db.Column(db.Integer, primary_key=True)
-    category_title = db.Column(db.String(255))
-    description = db.Column(db.String(255))
-
-    
-    def save_category(self):
-        db.session.add(self)
-        db.session.commit()
-
-    @classmethod
-    def get_categories(cls):
-        categories = Category.query.all()
-        return categories
 
 class Comment(db.Model):
     __tablename__ = 'comments'

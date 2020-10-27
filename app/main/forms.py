@@ -13,3 +13,6 @@ class CommentForm(FlaskForm):
     comment = TextAreaField('Leave a comment',validators=[Required()])
     submit = SubmitField('Comment')
 
+class UpdateProfile(FlaskForm):
+    bio = TextAreaField('Tell us about you.',validators = [Required()])
+    submit = SubmitField('Submit')

@@ -1,7 +1,8 @@
 from flask import render_template,request,redirect,url_for
 from . import main
+from .. import db
 from ..models import User,Pitch
-from .forms import PitchForm,CommentForm
+from .forms import PitchForm,CommentForm,UpdateProfile
 from flask_login import login_required,current_user
 
 @main.route('/')
@@ -56,3 +57,32 @@ def comment(pitch_id):
         print(new_comments)
         return redirect(url_for('.comment', pitch_id=pitch_id))
     return render_template('comment.html', form=form, post=post, comments=comments, user=user)
+
+@main.route('/user/<uname>')
+def profile(uname):
+    user = User.query.filter_by(username = uname).first()
+
+    if user is None:
+        abort(404)
+
+    return render_template("profile/profile.html", user = user)  
+
+@main.route('/user/<uname>/update',methods = ['GET','POST'])
+@login_required
+def update_profile(uname):
+    form = UpdateProfile()
+    user = User.query.filter_by(username = uname).first()
+    if user is None:
+        error = "User does not exist"
+        
+        form = UpdateProfile()
+
+    if form.validate_on_submit():
+        user.bio = form.bio.data
+
+        db.session.add(user)
+        db.session.commit()
+
+        return redirect(url_for('.profile',uname=user.username))
+
+    return render_template('profile/update.html',form = form)  
