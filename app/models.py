@@ -19,8 +19,6 @@ class User(UserMixin,db.Model):
     id = db.Column(db.Integer,primary_key = True)
     username = db.Column(db.String(255))
     email = db.Column(db.String(255),unique = True,index = True)
-    bio = db.Column(db.String(255))
-    profile_pic_path = db.Column(db.String())
     password_secure = db.Column(db.String(255))
     password_hash = db.Column(db.String(255))
 
@@ -60,6 +58,7 @@ class Pitch(db.Model):
     category = db.Column(db.String(255), index = True,nullable = False)
     
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    category_id = db.Column(db.Integer, db.ForeignKey("categories.id"))
     
     comments = db.relationship('Comment',backref = 'pitch',lazy="dynamic")
 
@@ -74,6 +73,22 @@ class Pitch(db.Model):
     def __repr__(self):
         return f'Title {self.title}'
 
+class Category(db.Model):
+    __tablename__ = 'categories'
+
+    id = db.Column(db.Integer, primary_key=True)
+    category_title = db.Column(db.String(255))
+    description = db.Column(db.String(255))
+
+    
+    def save_category(self):
+        db.session.add(self)
+        db.session.commit()
+
+    @classmethod
+    def get_categories(cls):
+        categories = Category.query.all()
+        return categories
 
 class Comment(db.Model):
     __tablename__ = 'comments'
@@ -93,14 +108,10 @@ class Comment(db.Model):
     def get_comments(cls,pitch_id):
         comments = Comment.query.filter_by(pitch_id=pitch_id).all()
         return comments
-
-    def delete(self):
-        db.session.delete(self)
-        db.session.commit()
+        
 
     def __repr__(self):
         return f'comment:{self.comment}'
-
 
 
 
