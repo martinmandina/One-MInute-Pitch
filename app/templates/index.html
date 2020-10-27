@@ -1,4 +1,5 @@
-
+{% extends 'base.html'%} 
+{% import 'macros.html' as macro %} 
 <!DOCTYPE html>
 <html>
   <head>
@@ -7,22 +8,31 @@
   </head>
   <body>
 
-{% extends 'base.html'%} 
-{% import 'macros.html' as macro %} 
 {% block styles%}
     {{ super() }}
     <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
 {% endblock %}
 
 {% block content %}
-<div class="container">
 
-        <div class="row">
-        <h3> Pitch</h3>
-        <ul>
-            
-        </ul>
-    </div>
-  {% endblock%}
+            <div  class="container" id="particles-js">
+                <h2 class="text-center" id="posts">All Pitches</h2>
+            <ul class="nav nav-pills nav-justified nav-fill" role="tablist">
+                <li class="nav-item" >
+                    <a id ="cats" class="nav-link" data-toggle="tab" href="#all"><strong>All Pitches</strong> </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id ="categories" data-toggle="tab" href="#pickuplines"><strong>Pickup Lines Pitches</strong></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id ="categories" data-toggle="tab" href="#interview"><strong>Interview Pitches</strong></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id ="categories"data-toggle="tab" href="#promotion"><strong>Promotion Pitches</strong></a>
+                </li>
+            </ul>
+        </div>
+{% endblock%}
+
 </body>
 </html>

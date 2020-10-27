@@ -6,9 +6,13 @@ from flask_login import login_required,current_user
 
 @main.route('/')
 def index():
-    # pitches = Pitch.pitches.query.all()
-    title = "Pitches - A MInute Pitch One liner"
+    pitches = Pitch.query.all()
+    pickuplines= Pitch.query.filter_by(category = 'Pickuplines').all() 
+    interview = Pitch.query.filter_by(category = 'Interview').all()
+    promotion = Pitch.query.filter_by(category = 'Promotion').all()
+    
+    title = "Pitches - A Minute Pitch Website One liner"
 
-    return render_template('index.html',title = title)
+    return render_template('index.html',title = title, pitches = pitches,pickuplines = pickuplines,promotion = promotion,interview = interview)
 
 

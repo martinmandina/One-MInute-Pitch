@@ -54,6 +54,7 @@ class Pitch(db.Model):
     id = db.Column(db.Integer,primary_key = True)
     title = db.Column(db.String(255))
     description = db.Column(db.String(), index = True)
+    category = db.Column(db.String(255), index = True,nullable = False)
 
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
     category_id = db.Column(db.Integer, db.ForeignKey("categories.id"))
