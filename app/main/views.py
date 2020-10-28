@@ -1,6 +1,6 @@
 from flask import render_template,request,redirect,url_for
 from . import main
-from .. import db
+from .. import db,photos
 from ..models import User,Pitch
 from .forms import PitchForm,CommentForm,UpdateProfile
 from flask_login import login_required,current_user
@@ -42,7 +42,7 @@ def comment(pitch_id):
 
     post = Pitch.query.get(pitch_id)
     user = User.query.all()
-    comments = Comment.query.filter_by(post_id=post_id).all()
+    comments = Comment.query.filter_by(pitch_id = pitch_id).all()
     if form.validate_on_submit():
         comment = form.comment.data
         pitch_id = pitch_id
@@ -85,4 +85,15 @@ def update_profile(uname):
 
         return redirect(url_for('.profile',uname=user.username))
 
-    return render_template('profile/update.html',form = form)  
+    return render_template('profile/update.html',form = form)
+
+@main.route('/user/<uname>/update/pic',methods= ['POST'])
+@login_required
+def update_pic(uname):
+    user = User.query.filter_by(username = uname).first()
+    if 'photo' in request.files:
+        filename = photos.save(request.files['photo'])
+        path = f'photos/{filename}'
+        user.profile_pic_path = path
+        db.session.commit()
+    return redirect(url_for('main.profile',uname=uname))  
