@@ -1,32 +1,30 @@
-
+<html>
+    <head>
+    </head>
+    <body>
     {% macro displayPitchList(pitches) %}
     {% for pitch in pitches %}
         <div class="">
-        <li class="text-center">
-          <strong>{{ pitch.title}}</strong><br>
-          {{ pitch.description}}
-         
-        </li>
+        <ol class="" style="color:blue;">
+          <strong>{{pitch.category}}:</strong><br>
+            <strong>Title:</strong><br>{{ pitch.title}}<br>
+            <strong>Description:</strong><br>{{ pitch.description}}
+             </ol><hr>
         {% endfor %}
         </div>
-        {% endmacro %}
-
-    {% macro display_comments(comments) %}
-    <div class="container">
-    </div>
-    <div class="card-columns">
-    {% for comment in comments %}
-    <div class="card">
-    <div class="card-header">
-    </div>
-    <div class="card-body">
-    <p>{{comment.comment}}</p>
-    </div>
-    <p class="text-center">{{comment.post.title}}</p>
-    </div>
-    {% endfor %}
-</div>
-
-{% endmacro %}
-
-
+    {% endmacro %}
+    
+        {% macro displayCommentList(comments) %}
+        {% for pitch in pitches %}
+            <div class="">
+            <li class="text-center">
+              <strong>{{pitch.category}}</strong><br>
+              <strong>{{ pitch.title}}</strong><br>
+            {{ pitch.description}}
+            </li>
+        {% endfor %}
+        </div>
+    {% endmacro %}
+</body>
+</html>
+        

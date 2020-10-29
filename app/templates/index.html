@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <link rel="stylesheet" href='/static/css/index.css' />
     <meta charset="utf-8">
     <title> {{ title }}</title>
   </head>
@@ -23,6 +24,7 @@
                 <li class="nav-item">
                   <a class="nav-link" id ="categories" data-toggle="tab" href="#pickuplines"><h2><strong>Pickup Lines Pitches</strong></h2></a>
                 </li>
+                
                 <li class="nav-item">
                   <a class="nav-link" id ="categories" data-toggle="tab" href="#interview"><h2><strong>Interview Pitches</strong></h2></strong></a>
                 </li>
@@ -30,13 +32,13 @@
                   <a class="nav-link" id ="categories"data-toggle="tab" href="#promotion"><h2><strong>Promotion Pitches</strong></h2></a>
                 </li>
             </ul>
+        
+            
+          <h3>{{ macro.displayPitchList(pickuplines)}}</h3>
+          <h3>{{ macro.displayPitchList(interview)}}</h3>
+          <h3>{{ macro.displayPitchList(promotion)}}</h3>
         </div>
-        <div class="tab">
-          {{ macro.displayPitchList(pickuplines)}}
-
-          {{ macro.displayPitchList(interview)}}
-          {{ macro.displayPitchList(promotion)}}
-        </div>
+          
 {% endblock%}
 
 </body>

@@ -7,18 +7,18 @@
 <div class="row">
 
 
-  <div class="col-md-2">
+  <div class="col-md-4" style="color:brown;">
     <h3> WELCOME {{user.username| capitalize}} </h3>
 
     {% if user.bio %}
       <p> {{user.bio}}</p>
 
     {%else%}
-      <p> {{user.username| capitalize}} Please tell us something about yourself.</p>
+      <h3> {{user.username| capitalize}} Please tell us something about yourself.</h3>
     {% endif %}
 
     {% if user == current_user %}
-      <a href="{{url_for('main.update_profile',uname=user.username)}}">Edit profile</a>
+      <a href="{{url_for('main.update_profile',uname=user.username)}}"><h3> Add your profile</h3></a>
     {% endif %}
 
   </div>
