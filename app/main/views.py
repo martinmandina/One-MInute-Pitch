@@ -5,16 +5,16 @@ from ..models import User,Pitch
 from .forms import PitchForm,CommentForm,UpdateProfile
 from flask_login import login_required,current_user
 
-@main.route('/')
+
+@main.route('/', methods =  ["POST","GET"])
 def index():
     pitches = Pitch.query.all()
-    pickuplines= Pitch.query.filter_by(category = 'Pickuplines').all() 
-    interview = Pitch.query.filter_by(category = 'Interview').all()
-    promotion = Pitch.query.filter_by(category = 'Promotion').all()
+    pickuplines= Pitch.query.filter_by(category = 'pickuplines').all() 
+    interview = Pitch.query.filter_by(category = 'interviewlines').all()
+    promotion = Pitch.query.filter_by(category = 'promotionlines').all()
     title = "Pitches - A Minute Pitch Website One liner"
 
     return render_template('index.html',title = title, pitches = pitches,pickuplines = pickuplines,promotion = promotion,interview = interview)
-
 
 @main.route('/pitches', methods =  ["POST","GET"])
 @login_required
@@ -28,9 +28,10 @@ def new_pitch():
         title = form.title.data
         user_id = current_user
 
-        print(current_user._get_current_object().id)
+        # print(current_user._get_current_object().id)
         new_pitch = Pitch(user_id =current_user._get_current_object().id, title = title,description=description,category=category)
         
+        new_pitch.save()
         return redirect(url_for('main.index'))
          
     return render_template('new_pitch.html', form = form)

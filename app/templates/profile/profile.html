@@ -14,7 +14,7 @@
       <p> {{user.bio}}</p>
 
     {%else%}
-      <p> {{user.username| capitalize}} You have no bio on your profile </p>
+      <p> {{user.username| capitalize}} Please tell us something about yourself.</p>
     {% endif %}
 
     {% if user == current_user %}
@@ -29,7 +29,7 @@
     <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" class="img-thumbnail">
 
     {%else%}
-    <p>No profile picture</p>
+    <p>Please add a  profile picture</p>
 
     {% endif %}
     {% if user == current_user %}

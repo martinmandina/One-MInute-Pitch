@@ -1,0 +1,5 @@
+Hello {{user.username}}
+Welcome to One-Minute-Pitch, You have just signed up.
+As you read through other users Pitches feel free to add your own,
+And comment on other users pitches.
+Welcome.

@@ -1,15 +1,11 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
+
     {% macro displayPitchList(pitches) %}
     {% for pitch in pitches %}
         <div class="">
         <li class="text-center">
-        <a href="/pitches"></a>
+          <strong>{{ pitch.title}}</strong><br>
+          {{ pitch.description}}
+         
         </li>
         {% endfor %}
         </div>
